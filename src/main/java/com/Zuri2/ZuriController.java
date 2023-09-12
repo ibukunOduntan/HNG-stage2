@@ -50,7 +50,6 @@ public class ZuriController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updatePerson(@PathVariable Long id,  @RequestBody ZuriDTO update) {
 
-
         ZuriDomain person = zuriRepo.findPersonById(id);
 
         if (person == null){
