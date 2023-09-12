@@ -62,10 +62,12 @@ For error responses (e.g., bad request, not found), the API returns a JSON objec
     
 
 ## Sample Usage
+If running locally, replace hng-stage2.onrender.com with your local url
+
 ### Creating a Person
 Request:
 
-    curl -X POST http://https://hng-stage2.onrender.com/api -H "Content-Type: application/json" -d '{"name": "John"}'
+    curl -X POST https://hng-stage2.onrender.com/api -H "Content-Type: application/json" -d '{"name": "John"}'
     
 Response (Success):
 
@@ -86,7 +88,7 @@ Response (Conflict, if bad input. Thhe same for all requests):
 ### Retrieving a Person
 Request:
 
-    curl -X GET http://https://hng-stage2.onrender.com/api?name=John
+    curl -X GET https://hng-stage2.onrender.com/api?name=John
 
 Response (Success):
 
@@ -98,7 +100,7 @@ Response (Success):
 ### Updating a Person
 Request:
 
-    curl -X PUT http://https://hng-stage2.onrender.com/api?name=John -H "Content-Type: application/json" -d '{"name": "NewName"}'
+    curl -X PUT https://hng-stage2.onrender.com/api?name=John -H "Content-Type: application/json" -d '{"name": "NewName"}'
 
 Response (Success):
 
@@ -115,7 +117,7 @@ Response (Not Found, if the person does not exist):
 ### Deleting a Person
 Request:
 
-    curl -X DELETE http://https://hng-stage2.onrender.com/api?name=John
+    curl -X DELETE https://hng-stage2.onrender.com/api?name=John
 
 Response (Success):
 
