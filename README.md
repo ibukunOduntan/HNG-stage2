@@ -62,9 +62,9 @@ Example `application.properties`:
 This API allows you to perform various operations related to user data.
 
 - Creating a new user: `POST /api`
-- Retrieving a user by name: `GET /api?name=John`
-- Updating a user's information: `PUT /api?name=John`
-- Deleting a user: `DELETE /api?name=John`
+- Retrieving a user by name: `GET /api/{id}`
+- Updating a user's information: `PUT /api/{id}`
+- Deleting a user: `DELETE /api/{id}`
 
 
 ## Endpoints
@@ -78,20 +78,20 @@ This API allows you to perform various operations related to user data.
 
 - **Retrieve a user by name:**
 
-  - URL: `/api?name=John`
+  - URL: `/api/{id}`
   - Method: `GET`
   - Response: JSON containing user information or an error message.
 
 - **Update a user's information:**
 
-  - URL: `/api?name=John`
+  - URL: `/api/{id}`
   - Method: `PUT`
   - Request Body: JSON with updated user information.
   - Response: JSON with a success message or error message.
 
 - **Delete a user:**
 
-  - URL: `/api?name=John`
+  - URL: `/api/{id}`
   - Method: `DELETE`
   - Response: JSON with a success message or error message.
 
