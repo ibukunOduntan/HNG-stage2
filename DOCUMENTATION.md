@@ -1,143 +1,296 @@
-# Zuri API Documentation
+# API Documentation
 
-This document provides information on how to use the Zuri API. The Zuri API allows you to perform CRUD (Create, Read, Update, Delete) operations on "Person" entities.
+## Overview
 
-## Table of Contents
+This document provides information on how to use the API endpoints, standard request and response formats, sample usage, and instructions for setting up and deploying the API.
 
-- [Endpoints](#endpoints)
-- [Standard Formats](#standard-formats)
-- [Sample Usage](#sample-usage)
-- [Limitations and Assumptions](#limitations-and-assumptions)
-- [Setting up and Deploying the API](#setting-up-and-deploying-the-api)
+### Base URL
+
+```
+https://hng-stage2.onrender.com/api
+```
 
 ## Endpoints
 
-The Zuri API provides the following endpoints:
+### 1. Create a Person
 
-- `POST /api`: Create a new person.
-- `GET /api`: Retrieve a person by their name.
-- `PUT /api`: Update a person's name.
-- `DELETE /api`: Delete a person by their name.
+#### Endpoint
 
-## Standard Formats
+```
+POST /
+```
 
-### Request Format
+#### Request Format
 
-#### Creating a Person (POST /api)
+- **Request Body:**
 
-To create a new person, make a POST request to `/api` with the following JSON request body:
+```json
+{
+  "name": "John Doe",
+}
+```
 
-    ```json
-    {
-    "name": "John"
-    }
+#### Response Format
 
-### Retrieving a Person (GET /api)
+- **Success Response (HTTP Status Code: 201 Created):**
 
-To retrieve a person by their name, make a GET request to /api with the name query parameter.
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+}
+```
 
-### Updating a Person (PUT /api)
-To update a person's name, make a PUT request to /api with the name query parameter and the following JSON request body:
+- **Error Response (HTTP Status Code: 400 Bad Request):**
 
-    {
-      "name": "NewName"
-    }
+```json
+{
+  "error": "Name must be a non-null, non-integer string!"
+}
+```
 
-### Deleting a Person (DELETE /api)
-To delete a person by their name, make a DELETE request to /api with the name query parameter.
+### 2. Get a Person by ID
 
-## Response Format
-The API responds with JSON for successful requests.
+#### Endpoint
 
-For successful operations (e.g., creation, retrieval, update, deletion), the API returns a JSON response with an HTTP status code of 200 OK. The response includes relevant data pertaining to the operation. Here's an example of a successful response when deleting a person:
+```
+GET /{id}
+```
 
-    {
-    "message": "Person name John deleted successfully"
-    }
-For error responses (e.g., bad request, not found), the API returns a JSON object with an error message. For instance, in the case of a bad request:
+#### Request Format
 
-    {
-      "error": "Bad Request: Name must be a non-null, non-integer string!"
-    }
-    
+- **URL Parameters:**
+
+  - `id` (integer) - The ID of the person to get.
+
+#### Response Format
+
+- **Success Response (HTTP Status Code: 200 OK):**
+
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+}
+```
+
+- **Error Response (HTTP Status Code: 404 Not Found):**
+
+```json
+{
+  "error": "Person not found"
+}
+```
+
+### 3. Update a Person by ID
+
+#### Endpoint
+
+```
+PUT /{id}
+```
+
+#### Request Format
+
+- **URL Parameters:**
+
+  - `id` (integer) - The ID of the person to update.
+
+- **Request Body:**
+
+```json
+{
+  "name": "Updated Name",
+}
+```
+
+#### Response Format
+
+- **Success Response (HTTP Status Code: 200 OK):**
+
+```json
+{
+  "message": "Person updated successfully",
+  "updatedDetails": {
+    "id": 1,
+    "name": "Updated Name",
+  }
+}
+```
+
+- **Error Response (HTTP Status Code: 404 Not Found):**
+
+```json
+{
+  "error": "Person not found"
+}
+```
+
+### 4. Delete a Person by ID
+
+#### Endpoint
+
+```
+DELETE /{id}
+```
+
+#### Request Format
+
+- **URL Parameters:**
+
+  - `id` (integer) - The ID of the person to delete.
+
+#### Response Format
+
+- **Success Response (HTTP Status Code: 200 OK):**
+
+```json
+{
+  "message": "User deleted successfully",
+  "deleted_user": {
+    "id": 1,
+    "name": "Updated Name",
+  }
+}
+```
+
+- **Error Response (HTTP Status Code: 404 Not Found):**
+
+```json
+{
+  "error": "Person not found"
+}
+```
 
 ## Sample Usage
-If running locally, replace hng-stage2.onrender.com with your local url
 
-### Creating a Person
-Request:
+Here are some sample requests and expected responses using postman:
 
-    curl -X POST https://hng-stage2.onrender.com/api -H "Content-Type: application/json" -d '{"name": "John"}'
-    
-Response (Success):
+### Create a Person
 
-    {
-    "message": "Person, John created successfully"
-    }
-Response (Conflict, if a person with the same name already exists.):
+**Request:**
 
-      {
-    "error": "Person with the same name already exists"
-      }
-Response (Conflict, if bad input. Thhe same for all requests):
+```http
+POST https://hng-stage2.onrender.com/api
 
-      {
-    "error": "Name must be a non-null, non-integer string!"
-      }
-  
-### Retrieving a Person
-Request:
+Content-Type: raw/json
 
-    curl -X GET https://hng-stage2.onrender.com/api/{id}
+{
+  "name": "John Doe",
+}
+```
 
-Response (Success):
+**Response (201 Created):**
 
-    {
-      "id": 1,
-      "name": "John"
-    }
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+}
+```
 
-### Updating a Person
-Request:
+### Get a Person by ID
 
-    curl -X PUT https://hng-stage2.onrender.com/api/{id} -H "Content-Type: application/json" -d '{"name": "NewName"}'
+**Request:**
 
-Response (Success):
+```http
+GET https://hng-stage2.onrender.com/api/1
+```
 
-    {
-      "id": 1,
-      "name": "NewName"
-    }
+**Response (200 OK):**
 
-Response (Not Found, if the person does not exist):
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+}
+```
 
-    {
-      "error": "Person does not exist"
-    }
-### Deleting a Person
-Request:
+### Update a Person by ID
 
-    curl -X DELETE https://hng-stage2.onrender.com/api/{id}
+**Request:**
 
-Response (Success):
+```http
+PUT https://hng-stage2.onrender.com/api/1
+Content-Type: raw/json
 
-    {
-      "message": "Person name John deleted successfully"
-    }
+{
+  "name": "Updated Name",
+}
+```
 
-Response (Not Found, if the person does not exist):
+**Response (200 OK):**
 
-    {
-      "error": "Person does not exist"
-    }
+```json
+{
+  "message": "Person updated successfully",
+  "updatedDetails": {
+    "id": 1,
+    "name": "Updated Name",
+  }
+}
+```
 
-## Limitations and Assumptions
-The API assumes that names must be non-null and non-integer strings. It validates this assumption for all endpoints.
+### Delete a Person by ID
 
-The API returns JSON responses for successful and error cases. Error responses include descriptive error messages.
+**Request:**
 
-## Setting up and Deploying the API
-See README.md
+```http
+DELETE https://hng-stage2.onrender.com/api/1
+```
+
+**Response (200 OK):**
+
+```json
+{
+  "message": "User deleted successfully",
+  "deleted_user": {
+    "id": 1,
+    "name": "Updated Name",
+  }
+}
+```
+
+## Known Limitations
+
+- This API does not include authentication and authorization mechanisms. Consider implementing them for production use.
+
+## Setup and Deployment
+
+### Prerequisites
+-Java 17 or higher
+-Spring boot 3
+-PostgreSQL 15 database
+-Maven (for building and managing dependencies)
 
 
+To set up and deploy the API locally or on a server, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/ibukunOduntan/HNG-stage2.git`
+
+2. Build the project: `mvn clean install`
+
+3. Configure the application
+
+The configuration for this API is stored in the `application.properties` file. To configure the API or make changes to its behavior, you can edit this file. Here's how:
+
+1. Navigate to the directory where the `application.properties` file is located.
+
+2. Open `application.properties` in a text editor of your choice.
+
+3. Modify the configuration settings as needed. Common configurations include database connection details, server port, or API secret keys.
+
+Example `application.properties`:
+
+    ```properties
+    server.port= PORT
+    # Database configuration
+    spring.datasource.url=jdbc:mysql://localhost:3306/mydb
+    spring.datasource.username=username
+    spring.datasource.password=password
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+4. Run the API by using the application jar file in the target folder: `java -jar target/application-name.jar`
+
+5. The API will be accessible at `http://localhost:PORT`, where `PORT` is the port you specified in your application.properties file.
 
