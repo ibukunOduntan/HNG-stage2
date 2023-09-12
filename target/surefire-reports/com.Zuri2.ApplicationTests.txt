@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.Zuri2.ApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.301 s - in com.Zuri2.ApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.976 s - in com.Zuri2.ApplicationTests
