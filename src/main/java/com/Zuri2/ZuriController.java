@@ -17,7 +17,7 @@ public class ZuriController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createPerson(@RequestBody ZuriDTO create) {
+    public ResponseEntity<?> createPerson(@RequestBody ZuriDTO create) {
         if (create.getName().isEmpty() || !isNonIntegerString(create.getName())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Name must be a non-null, non-integer string!");
@@ -32,7 +32,7 @@ public class ZuriController {
         person.setName(create.getName());
         zuriRepo.save(person);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Person, " + person.getName() + " created successfully");
+                .body(person);
     }
 
     @GetMapping("/{id}")
@@ -48,7 +48,7 @@ public class ZuriController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatePerson(@PathVariable Long id,  @RequestBody ZuriDTO update) {
+    public ResponseEntity<?> updatePerson(@PathVariable Long id,  @RequestBody ZuriDTO update) {
 
         ZuriDomain person = zuriRepo.findPersonById(id);
 
@@ -66,7 +66,7 @@ public class ZuriController {
         zuriRepo.save(person);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Person name " + person.getName()  + " changed to " + update.getName() + " successfully");
+                .body(person);
     }
 
     @DeleteMapping("/{id}")

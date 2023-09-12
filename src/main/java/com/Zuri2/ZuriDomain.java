@@ -7,7 +7,16 @@ import jakarta.persistence.*;
 public class ZuriDomain {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+    name = "person_sequence",
+    sequenceName = "person_sequence",
+    allocationSize = 1
+            )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "person_sequence"
+    )
+
     private Long id;
 
     private String name;
