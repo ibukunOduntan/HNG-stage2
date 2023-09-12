@@ -1,123 +1,142 @@
-# HNG-stage2
-HNG Internship backend task stage two
+# HNG-stage2 API
 
-This is a RESTful API built with Spring Boot that allows you to manage user data.
-
-## Table of Contents
-
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Endpoints](#endpoints)
-- [Testing](#testing)
-
-
-## Prerequisites
--Java 17 or higher
--Spring boot 3
--Render
--PostgreSQL 15 database
--Maven (for building and managing dependencies)
+This API allows you to perform CRUD (Create, Read, Update, Delete) operations on Person objects. You can interact with this API to manage information about individuals.
 
 ## Getting Started
 
-### Installation
-To get started with this API, follow these steps:
+Before you begin, make sure you have the following prerequisites:
+
+-Java 17 or higher
+-Spring boot 3
+-PostgreSQL 15 database
+-Maven (for building and managing dependencies)
+
+## Installation
 
 1. Clone the repository to your local machine.
+
+```bash
+git clone https://github.com/ibukunOduntan/HNG-stage2.git
+```
+
 2. Run `mvn clean install` to build the project.
 
-### Configuration
+3. Configure the application
 
 The configuration for this API is stored in the `application.properties` file. To configure the API or make changes to its behavior, you can edit this file. Here's how:
 
-1. Navigate to the directory where the `application.properties` file is located.
+- Navigate to the directory where the `application.properties` file is located.
 
-2. Open `application.properties` in a text editor of your choice.
+- Open `application.properties` in a text editor of your choice.
 
-3. Modify the configuration settings as needed. Common configurations include database connection details, server port, or API secret keys.
+- Modify the configuration settings as needed. Common configurations include database connection details, server port, or API secret keys.
 
 Example `application.properties`:
 
-    ```properties
-    # Database configuration
+```properties
+  # Database configuration
+    server.port = PORT
     spring.datasource.url=jdbc:mysql://localhost:3306/mydb
     spring.datasource.username=username
     spring.datasource.password=password
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
 
 
-### Running the application
-1. Package your application in a jar file using
 
-        ```mvn clean package
+4. Package your application in a jar file using
+
+```bash
+mvn clean package
+```
+
+  
    
-3. Test the package by using the command:
-   
-        ```java -jar your-application.jar
-   
+6. Run the package by using the jar application file found in the target folder:
 
-## Usage
-
-This API allows you to perform various operations related to user data.
-
-- Creating a new user: `POST /api`
-- Retrieving a user by name: `GET /api/{id}`
-- Updating a user's information: `PUT /api/{id}`
-- Deleting a user: `DELETE /api/{id}`
+```bash
+           java -jar your-application.jar
+```
 
 
 ## Endpoints
 
-- **Create a new user:**
+### Create a Person
 
-  - URL: `/api`
-  - Method: `POST`
-  - Request Body: JSON with a `name` field. e.g
+- **Endpoint**: `POST /`
+- **Description**: Create a new person with a name and a value.
+- **Request Body**:
 
-                {
-            "name" : "Danny"
-                }
-    
-  - Response: JSON with a success message or error message.
+```json
+{
+  "name": "John Doe",
+}
+```
 
-- **Retrieve a user by name:**
+- **Response**:
 
-  - URL: `/api/{id}`
-  - Method: `GET`
-  - Response: JSON containing user information or an error message.
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+}
+```
 
-- **Update a user's information:**
+### Get a Person by ID
 
-  - URL: `/api/{id}`
-  - Method: `PUT`
-  - Request Body: JSON with updated user information. e.g
- 
-          {
-            "name" : "Danny"
-            }
-  - Response: JSON with a success message or error message.
+- **Endpoint**: `GET /{id}`
+- **Description**: Retrieve a person by their ID.
+- **Response**:
 
-- **Delete a user:**
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+}
+```
 
-  - URL: `/api/{id}`
-  - Method: `DELETE`
-  - Response: JSON with a success message or error message.
+### Update a Person by ID
 
-## Testing
+- **Endpoint**: `PUT /{id}`
+- **Description**: Update a person's name and value by their ID.
+- **Request Body**:
 
-You can use the provided Python test script (`test.py`) to test the API. Follow these steps to run the tests:
+```json
+{
+  "name": "Updated Name",
 
-1. Make sure you have Python installed on your system.
+}
+```
 
-2. Open a terminal and navigate to the directory containing `test.py`.
+- **Response**:
 
-3. Modify the script if needed to specify the API endpoint or any test data.
+```json
+{
+  "message": "Person updated successfully"
+}
+```
 
-4. Run the script using the following command:
+### Delete a Person by ID
 
-   ```bash
-   python test.py
+- **Endpoint**: `DELETE /{id}`
+- **Description**: Delete a person by their ID.
+- **Response**:
 
+```json
+{
+  "message": "User deleted successfully",
+  "deleted_user": {
+    "id": 1,
+    "name": "John Doe",
+  }
+}
+```
 
+## Error Handling
 
+- If the provided ID does not exist, you will receive a `404 Not Found` response.
+- If the request body does not contain valid name and value fields, you will receive a `400 Bad Request` response.
+- If there is an internal server error, you will receive a `500 Internal Server Error` response.
+
+## Test
+- To run tests run the Test.py file in your project directory. Ensure to replace the url and id parameters as needed.
