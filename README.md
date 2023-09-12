@@ -73,7 +73,12 @@ This API allows you to perform various operations related to user data.
 
   - URL: `/api`
   - Method: `POST`
-  - Request Body: JSON with a `name` field.
+  - Request Body: JSON with a `name` field. e.g
+
+                {
+            "name" : "Danny"
+                }
+    
   - Response: JSON with a success message or error message.
 
 - **Retrieve a user by name:**
@@ -86,7 +91,11 @@ This API allows you to perform various operations related to user data.
 
   - URL: `/api/{id}`
   - Method: `PUT`
-  - Request Body: JSON with updated user information.
+  - Request Body: JSON with updated user information. e.g
+ 
+          {
+            "name" : "Danny"
+            }
   - Response: JSON with a success message or error message.
 
 - **Delete a user:**
