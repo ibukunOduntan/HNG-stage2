@@ -12,18 +12,18 @@ def create_person(name):
 
 # Function to send a GET request to read a person
 def read_person(name):
-    response = requests.get(f'{base_url}?name={name}')
+    response = requests.get(f'{base_url}?id={id}')
     return response
 
 # Function to send a PUT request to update a person
-def update_person(name, new_name):
+def update_person(id, new_name):
     data = {'name': new_name}
-    response = requests.put(f'{base_url}?name={name}', json=data)
+    response = requests.put(f'{base_url}?id={id}', json=data)
     return response
 
 # Function to send a DELETE request to delete a person
-def delete_person(name):
-    response = requests.delete(f'{base_url}?name={name}')
+def delete_person(id):
+    response = requests.delete(f'{base_url}?id={id}')
     return response
 
 # Test the create endpoint
@@ -34,21 +34,21 @@ print(create_response.text)
 print('\n')
 
 # Test the read endpoint
-read_response = read_person('John Doe')
+read_response = read_person(1)
 print('Read Person Response:')
 print(read_response.status_code)
 print(read_response.text)
 print('\n')
 
 # Test the update endpoint
-update_response = update_person('John Doe', 'Jane Doe')
+update_response = update_person(1, 'Jane Doe')
 print('Update Person Response:')
 print(update_response.status_code)
 print(update_response.text)
 print('\n')
 
 # Test the delete endpoint
-delete_response = delete_person('Jane Doe')
+delete_response = delete_person(1)
 print('Delete Person Response:')
 print(delete_response.status_code)
 print(delete_response.text)
