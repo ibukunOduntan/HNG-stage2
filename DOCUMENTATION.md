@@ -88,7 +88,7 @@ Response (Conflict, if bad input. Thhe same for all requests):
 ### Retrieving a Person
 Request:
 
-    curl -X GET https://hng-stage2.onrender.com/api?name=John
+    curl -X GET https://hng-stage2.onrender.com/api/{id}
 
 Response (Success):
 
@@ -100,7 +100,7 @@ Response (Success):
 ### Updating a Person
 Request:
 
-    curl -X PUT https://hng-stage2.onrender.com/api?name=John -H "Content-Type: application/json" -d '{"name": "NewName"}'
+    curl -X PUT https://hng-stage2.onrender.com/api/{id} -H "Content-Type: application/json" -d '{"name": "NewName"}'
 
 Response (Success):
 
@@ -117,7 +117,7 @@ Response (Not Found, if the person does not exist):
 ### Deleting a Person
 Request:
 
-    curl -X DELETE https://hng-stage2.onrender.com/api?name=John
+    curl -X DELETE https://hng-stage2.onrender.com/api/{id}
 
 Response (Success):
 
