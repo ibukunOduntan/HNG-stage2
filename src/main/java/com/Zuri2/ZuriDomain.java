@@ -25,7 +25,7 @@ public class ZuriDomain {
     public ZuriDomain() {
     }
 
-    public Long getId() {
+        public Long getId() {
         return id;
     }
 

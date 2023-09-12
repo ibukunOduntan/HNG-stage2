@@ -35,15 +35,10 @@ public class ZuriController {
                 .body("Person, " + person.getName() + " created successfully");
     }
 
-    @GetMapping("")
-    public ResponseEntity<?> readPerson(@RequestParam (name = "name") String encodedName) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> readPerson(@PathVariable Long id) {
 
-        String name = java.net.URLDecoder.decode(encodedName, StandardCharsets.UTF_8);
-        ZuriDomain person = zuriRepo.findByName(name);
-        if (name.isEmpty() || !isNonIntegerString(name)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Name must be a non-null, non-integer string!");
-        }
+        ZuriDomain person = zuriRepo.findPersonById(id);
 
         if (person == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -52,15 +47,11 @@ public class ZuriController {
         return ResponseEntity.ok(person);
     }
 
-    @PutMapping("")
-    public ResponseEntity<String> updatePerson(@RequestParam (name = "name") String encodedName,  @RequestBody ZuriDTO update) {
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updatePerson(@PathVariable Long id,  @RequestBody ZuriDTO update) {
 
-        String name = java.net.URLDecoder.decode(encodedName, StandardCharsets.UTF_8);
-        if (name.isEmpty() || !isNonIntegerString(name)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Name must be a non-null, non-integer string!");
-        }
-        ZuriDomain person = zuriRepo.findByName(name);
+
+        ZuriDomain person = zuriRepo.findPersonById(id);
 
         if (person == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -76,28 +67,22 @@ public class ZuriController {
         zuriRepo.save(person);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Person name " + name  + " changed to " + update.getName() + " successfully");
+                .body("Person name " + person.getName()  + " changed to " + update.getName() + " successfully");
     }
 
-    @DeleteMapping("")
-    public ResponseEntity<String> deletePerson(@RequestParam (name = "name") String encodedName){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePerson(@PathVariable Long id){
 
-        String name = java.net.URLDecoder.decode(encodedName, StandardCharsets.UTF_8);
-        if (name.isEmpty() || !isNonIntegerString(name)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Name must be a non-null, non-integer string!");
-        }
-
-        if (zuriRepo.findByName(name) == null){
+        if (zuriRepo.findPersonById(id) == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Person does not exist");
         }
 
-        ZuriDomain person = zuriRepo.findByName(name);
+        ZuriDomain person = zuriRepo.findPersonById(id);
         zuriRepo.delete(person);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Person name " + name  + " deleted successfully");
+                .body("Person name " + person.getName()  + " deleted successfully");
     }
 
     private boolean isNonIntegerString(String str) {
