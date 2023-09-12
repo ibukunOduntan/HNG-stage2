@@ -12,18 +12,18 @@ def create_person(name):
 
 # Function to send a GET request to read a person
 def read_person(name):
-    response = requests.get(f'{base_url}?id={id}')
+    response = requests.get(f'{base_url}/id={id}')
     return response
 
 # Function to send a PUT request to update a person
 def update_person(id, new_name):
     data = {'name': new_name}
-    response = requests.put(f'{base_url}?id={id}', json=data)
+    response = requests.put(f'{base_url}/id={id}', json=data)
     return response
 
 # Function to send a DELETE request to delete a person
 def delete_person(id):
-    response = requests.delete(f'{base_url}?id={id}')
+    response = requests.delete(f'{base_url}/id={id}')
     return response
 
 # Test the create endpoint
