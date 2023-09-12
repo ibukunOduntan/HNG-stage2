@@ -61,11 +61,11 @@ For error responses (e.g., bad request, not found), the API returns a JSON objec
     }
     
 
-##Sample Usage
+## Sample Usage
 ### Creating a Person
 Request:
 
-    curl -X POST http://localhost:8080/api -H "Content-Type: application/json" -d '{"name": "John"}'
+    curl -X POST http://https://hng-stage2.onrender.com/api -H "Content-Type: application/json" -d '{"name": "John"}'
     
 Response (Success):
 
@@ -86,7 +86,7 @@ Response (Conflict, if bad input. Thhe same for all requests):
 ### Retrieving a Person
 Request:
 
-    curl -X GET http://localhost:8080/api?name=John
+    curl -X GET http://https://hng-stage2.onrender.com/api?name=John
 
 Response (Success):
 
@@ -98,7 +98,7 @@ Response (Success):
 ### Updating a Person
 Request:
 
-    curl -X PUT http://localhost:8080/api?name=John -H "Content-Type: application/json" -d '{"name": "NewName"}'
+    curl -X PUT http://https://hng-stage2.onrender.com/api?name=John -H "Content-Type: application/json" -d '{"name": "NewName"}'
 
 Response (Success):
 
@@ -115,7 +115,7 @@ Response (Not Found, if the person does not exist):
 ### Deleting a Person
 Request:
 
-    curl -X DELETE http://localhost:8080/api?name=John
+    curl -X DELETE http://https://hng-stage2.onrender.com/api?name=John
 
 Response (Success):
 
@@ -135,24 +135,7 @@ The API assumes that names must be non-null and non-integer strings. It validate
 The API returns JSON responses for successful and error cases. Error responses include descriptive error messages.
 
 ## Setting up and Deploying the API
-Follow these steps to set up and deploy the Zuri API locally:
-
-Clone the repository:
-
-
-    git clone https://github.com/yourusername/your-zuri-api.git
-Navigate to the project directory:
-
-
-    cd your-zuri-api
-
-Build and run the API (assuming you have the required dependencies installed):
-
-
-# Example for Spring Boot
-    mvn spring-boot:run
-
-
+See README.md
 
 
 
