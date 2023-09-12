@@ -70,7 +70,7 @@ public class ZuriController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePerson(@PathVariable Long id){
+    public ResponseEntity<?> deletePerson(@PathVariable Long id){
 
         if (zuriRepo.findPersonById(id) == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -80,8 +80,7 @@ public class ZuriController {
         ZuriDomain person = zuriRepo.findPersonById(id);
         zuriRepo.delete(person);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body("Person name " + person.getName()  + " deleted successfully");
+        return ResponseEntity.ok().build();
     }
 
     private boolean isNonIntegerString(String str) {
