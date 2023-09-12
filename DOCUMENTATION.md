@@ -282,13 +282,16 @@ The configuration for this API is stored in the `application.properties` file. T
 
 Example `application.properties`:
 
-    ```properties
-    server.port= PORT
+```properties
+ server.port= PORT
     # Database configuration
     spring.datasource.url=jdbc:mysql://localhost:3306/mydb
     spring.datasource.username=username
     spring.datasource.password=password
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
+  
+   
 
 4. Run the API by using the application jar file in the target folder: `java -jar target/application-name.jar`
 
