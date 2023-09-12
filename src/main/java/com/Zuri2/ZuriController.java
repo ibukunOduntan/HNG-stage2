@@ -80,7 +80,7 @@ public class ZuriController {
         ZuriDomain person = zuriRepo.findPersonById(id);
         zuriRepo.delete(person);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     private boolean isNonIntegerString(String str) {
